@@ -1,2 +1,2 @@
 # i3-wm
-La configuración de mi escritorio
+#### La configuración de mi escritorio
