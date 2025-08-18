@@ -14,7 +14,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango: Hack Nerd Font 8
-#font pango:monospace 9
+# font pango:monospace 9
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -22,14 +22,14 @@ font pango: Hack Nerd Font 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- sh -c "dm-tool lock"
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- sh -c "dm-tool lock"
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -54,23 +54,25 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # Block the session
-bindsym $mod+mod1+b exec dm-tool lock
+bindsym $mod+mod1+b exec --no-startup-id sh -c "dm-tool lock"
 
 # start a terminal
-bindsym $mod+t exec alacritty
+bindsym $mod+t exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+c kill
+bindsym $mod+c kill 
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+Shift+z exec --no-startup-id i3-dmenu-desktop
 # A more modern dmenu replacement is rofi:
 bindsym $mod+Shift+d exec "rofi -modi drun,run -show drun -show-icons"
 bindsym $mod+Shift+s exec dmenu-script
-bindsym $mod+Shift+a exec dmenu-script1
+bindsym $mod+Shift+a exec dmenu-script1 
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
-bindsym $mod+Shift+z exec --no-startup-id i3-dmenu-desktop
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -130,9 +132,9 @@ set $ws3 "Navegador"
 set $ws4 "Musica"
 set $ws5 "Retro"
 set $ws6 "Oficina"
-set $ws7 "Miselaneo"
-set $ws8 "Miselaneo"
-set $ws9 "Miselaneo"
+set $ws7 "Miselaneo 1"
+set $ws8 "Miselaneo 2"
+set $ws9 "Miselaneo 3"
 set $ws10 "Configuracion"
 
 # switch to workspace
@@ -159,22 +161,19 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-# switch between desktops
+# Switch between desktops
 bindsym $mod+mod1+Left workspace prev
 bindsym $mod+mod1+Right workspace next
 
-# tabulate in the last two workspaces
+# Tabulate in the last two workspace
 bindsym $mod+Tab workspace back_and_forth
-
-# screenshot
-bindsym Print exec shotgun
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '¿Desea salir de su sesion?' -B 'Hey' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Desea salir de su sesion? This will end your X session.' -B 'Hey' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -206,27 +205,31 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	position top	
-	tray_output primary
-	status_command ~/.config/bumblebee-status/bumblebee-status \
-	-t iceberg \
-	-m cpu sensors memory disk battery cmus amixer brightness hostname datetime
-        colors {
-        	# background #222222ff
-		background #222222
-        	statusline #eeeeee
-	        separator #666666
-	        #                   border  backgr. text
-	        focused_workspace  #005818 #00450b #ffffff
-	        active_workspace   #000445 #00450b #ffffff
-	        inactive_workspace #000445 #555555 #888888
-	        urgent_workspace   #2f343a #900000 #ffffff
-	}
-
+    position top
+    tray_output primary
+    status_command ~/.config/bumblebee-status/bumblebee-status\
+    -t iceberg \
+    -m cpu sensors memory disk battery cmus amixer brightness hostname datetime
+          colors {
+            # background #222222ff
+    background #222222
+            statusline #eeeeee
+            separator #666666
+            #                    border  bakgr.  text
+            focused_workspace   #005818 #00450b #ffffff
+            active_workspace    #000445 #00450b #ffffff
+            inactive_workspace  #000445 #555555 #888888
+            urgent_workspace    #2f343a #900000 #ffffff
+    }
 }
 
 # Miselaneus
 
+exec_always --no-startup-id setxkbmap -layout us -variant intl
+# Touchpad configuration
+exec_always --no-startup-id touchpad
+# Starting the agent of Polkit of KDE for manage permissions
+exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
 gaps outer 2
 gaps inner 2
 smart_gaps on
