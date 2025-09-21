@@ -35,6 +35,7 @@ font pango: Hack Nerd Font 8
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet --indicator
 exec --no-startup-id blueman-applet
+exec_always --no-startup-id xsettingsd
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -210,7 +211,7 @@ bindsym $mod+r mode "resize"
 #    tray_output primary
 #    status_command ~/.config/bumblebee-status/bumblebee-status\
 #    -t iceberg \
-#    -m cpu sensors memory disk battery cmus amixer brightness hostname datetime
+#    -m cpu sensors memory disk battery cmus pipewire brightness hostname datetime
 #          colors {
 #            # background #222222ff
 #    background #222222
@@ -227,7 +228,7 @@ bindsym $mod+r mode "resize"
 # Miselaneus
 
 # Iniciar Polybar
-bindsym Print exec spectacle
+bindsym Print exec flameshot &
 bindsym $mod+Shift+t exec ~/.local/bin/toggle-keyboard.sh &
 bindsym $mod+Shift+n exec ~/.config/eww/launch.sh &
 bindsym $mod+Shift+i exec life_fondo ~/Videos/Hypnotic.mp4 &
@@ -237,8 +238,8 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh &
 exec_always --no-startup-id setxkbmap -layout us -variant intl
 # Touchpad configuration
 exec_always --no-startup-id touchpad
-exec_always --no-startup-id libinput-gestures-setup start
-exec_always --no-startup-id libinput-gestures-setup restart
+exec_always --no-startup-id libinput-gestures-setup start -c ~/.config/libinput-gestures-i3.conf
+exec_always --no-startup-id libinput-gestures-setup restart -c ~/.config/libinput-gestures-i3.conf
 # Inicia los servicios de portal para permisos (micrófono, cámara, etc.)
 exec --no-startup-id /usr/lib/xdg-desktop-portal
 exec --no-startup-id /usr/lib/xdg-desktop-portal-gtk

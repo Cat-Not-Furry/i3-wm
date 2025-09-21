@@ -210,7 +210,7 @@ bar {
     tray_output primary
     status_command ~/.config/bumblebee-status/bumblebee-status\
     -t iceberg \
-    -m cpu sensors memory disk battery cmus amixer brightness hostname datetime
+    -m cpu sensors memory disk battery pipewire cmus brightness hostname datetime
           colors {
             # background #222222ff
             background #222222
@@ -227,7 +227,7 @@ bar {
 # Miselaneus
 
 # Iniciar Polybar
-bindsym Print exec spectacle &
+bindsym Print exec flameshot &
 bindsym $mod+Shift+t exec ~/.local/bin/toggle-keyboard.sh &
 bindsym $mod+Shift+n exec ~/.config/eww/launch.sh &
 bindsym $mod+Shift+i exec life_fondo ~/Videos/Hypnotic.mp4 &
@@ -237,8 +237,8 @@ bindsym $mod+Shift+p exec ~/.local/bin/dead_fondo.sh
 exec_always --no-startup-id setxkbmap -layout us -variant intl
 # Touchpad configuration
 exec_always --no-startup-id touchpad
-exec_always --no-startup-id libinput-gestures start
-exec_always --no-startup-id libinput-gestures restart
+exec_always --no-startup-id libinput-gestures start -c ~/.config/libinput-gestures-i3.conf
+exec_always --no-startup-id libinput-gestures restart -c ~/.config/libinput-gestures-i3.conf
 #exec_always --no-startup-id pgrep -f libinput-gestures
 #exec_always --no-startup-id nohup libinput-gestures >/dev/null 2>&1 &
 # Inicia los servicios de portal para permisos (micrófono, cámara, etc.)
