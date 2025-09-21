@@ -55,6 +55,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # Block the session
+exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/lock.sh
 bindsym $mod+mod1+b exec ~/.config/i3/lock.sh
 
 # start a terminal
