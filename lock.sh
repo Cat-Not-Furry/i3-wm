@@ -1,18 +1,33 @@
 #!/bin/bash
 
-# Ruta donde se guardará la captura de pantalla temporalmente
-TMP_IMG="/tmp/screen.png"
-
-# Tomar la captura de pantalla
-scrot -o "$TMP_IMG"
-
-# Aplicar el efecto de desenfoque con imagemagick
-# El valor '0x8' controla la intensidad del desenfoque. Puedes ajustarlo.
-convert "$TMP_IMG" -scale 10% -scale 1000% -blur 0x8 "$TMP_IMG"
-
-# Ejecutar i3lock con la imagen desenfocada
-# --nofork para que el script espere a que se desbloquee
-i3lock -i "$TMP_IMG" --nofork
-
-# Opcional: Borrar la imagen temporal después de desbloquear
-rm "$TMP_IMG"
+i3lock \
+  --blur 5 \
+  --bar-indicator \
+  --bar-pos x+225:y+h-460 \
+  --bar-direction 1 \
+  --bar-max-height 250 \
+  --bar-color=1e2132ff \
+  --keyhl-color=84a0c6ff \
+  --bar-total-width 1500 \
+  --bar-periodic-step 20 \
+  --bar-orientation horizontal \
+  --redraw-thread \
+  --clock \
+  --time-str="%H:%M:%S" \
+  --time-pos x+950:y+h-350 \
+  --time-color=84a0c6ff \
+  --time-size=100 \
+  --date-size=50 \
+  --date-pos x+950:y+h-300 \
+  --date-color=84a0ffff \
+  --verif-text="Verificando" \
+  --wrong-text="Incorrecto" \
+  --wrong-size=50 \
+  --noinput-text="" \
+  --insidever-color=00000000 \
+  --insidewrong-color=00000000 \
+  --ringver-color=00000000 \
+  --ringwrong-color=d75f5fff \
+  --separator-color=00000000 \
+  --verif-color=ffffffff \
+  --wrong-color=ffffffff
